@@ -84,7 +84,7 @@ let appData = {
         if (items != null && items != '' && isNaN(+items) ) {
             appData.income = items.split(', ');
             let itemsMore = prompt('Может что-то еще?', '');
-            if (isNaN(+itemsMore)) {
+            if (itemsMore != null && itemsMore != '' && isNaN(+itemsMore)) {
                 appData.income.push(itemsMore);
         appData.income.sort();
             } else {
@@ -105,10 +105,9 @@ appData.chooseIncome();
 
 
 console.log('Наша программа включает в себя данные:');
-
 for (const key in appData) {
  console.log(appData[key]);
- 
+
 }
 
 
