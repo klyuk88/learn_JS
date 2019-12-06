@@ -84,7 +84,7 @@ let appData = {
         if (items != null && items != '' && isNaN(+items) ) {
             appData.income = items.split(', ');
             let itemsMore = prompt('Может что-то еще?', '');
-            if (itemsMore != null && itemsMore != '' && isNaN(+itemsMore)) {
+            if (isNaN(+itemsMore)) {
                 appData.income.push(itemsMore);
         appData.income.sort();
             } else {
