@@ -1,13 +1,32 @@
-let startСalc = document.getElementById('start'), //Получить кнопку "Начать расчет" через id
-    valueBlocks = document.querySelectorAll('.result-table div[class*="value"'), //все блоки в правой части программы
-    inputs = document.querySelectorAll('.expenses-item'), //поля(input) c обязательными расходами
-    btns = document.querySelectorAll('button'), //кнопки через тэг
-    approveBtnOne = btns[0], //Получить кнопки “Утвердить”
-    approveBtnTwo = btns[1], //Получить кнопки “Утвердить”
-    countBtn = btns[2], //“Рассчитать”
-    optExpenses = document.querySelectorAll('.optionalexpenses-item'), //поля для ввода необязательных расходов
+ //Получить кнопку "Начать расчет" через id
+let startСalc = document.getElementById('start'),
 
-    //оставшиеся поля через querySelector
+ //все блоки в правой части программы
+    valueBlocks = document.querySelectorAll('.result-table div[class*="value"'),
+    budgetVal = valueBlocks[0],
+    dayBudgetVal = valueBlocks[1],
+    levelVal = valueBlocks[2],
+    expensesVal = valueBlocks[3],
+    optionalExpensesVal = valueBlocks[4],
+    incomeVal = valueBlocks[5],
+    monthSavingsVal = valueBlocks[6],
+    yearSavingsVal = valueBlocks[7],
+
+    //поля(input) c обязательными расходами
+    inputs = document.querySelectorAll('.expenses-item'),
+
+
+    //кнопки через тэг
+    btns = document.querySelectorAll('button'), 
+    approveBtnOne = btns[0], 
+    approveBtnTwo = btns[1],
+    countBtn = btns[2],
+
+    //поля для ввода необязательных расходов
+    optExpenses = document.querySelectorAll('.optionalexpenses-item'),
+
+
+    //оставшиеся поля
     chooseIncome = document.querySelector('.choose-income'),
     savings = document.querySelector('#savings'),
     chooseSum = document.querySelector('.choose-sum'),
