@@ -38,10 +38,14 @@ let startСalc = document.getElementById('start'),
     dayVal = document.querySelector('.day-value');
 
 
-
 let money, time;
 
 startСalc.addEventListener('click', function () {
+
+    btns.forEach(e => {
+        e.removeAttribute('disabled');
+        e.classList.remove('disable-style-btn');
+    });
     
     time = prompt('Введите дату в формате YYYY-MM-DD', '');
     money = +prompt('Ваш бюджет на месяц?', '');
@@ -57,6 +61,8 @@ startСalc.addEventListener('click', function () {
     dayVal.value = new Date(Date.parse(time)).getDate();
  });
 
+
+// обязательные расходы
  approveBtnOne.addEventListener('click', function(){
     let sum = 0;
 
@@ -77,7 +83,7 @@ startСalc.addEventListener('click', function () {
     }
 
  });
-
+//  необязательные расходы
  approveBtnTwo.addEventListener('click', function () { 
     for (let i = 0; i < optExpenses.length; i++) {
 
@@ -94,13 +100,13 @@ countBtn.addEventListener('click',function () {
 
     if (appData.budget != undefined) {
         
-    appData.dailyBudget = +((appData.budget / 30).toFixed());
+    appData.dailyBudget = +(((appData.budget - expensesVal.textContent) / 30).toFixed());
     dayBudgetVal.textContent = appData.dailyBudget;
     switch (true) {
         case appData.dailyBudget < 500:
             levelVal.textContent = 'Ваш достаток ниже среднего';
             break;
-        case appData.dailyBudget > 500 && appData.dailyExpense < 3000:
+        case appData.dailyBudget > 500 && appData.dailyBudget < 3000:
             levelVal.textContent = 'Ваш достаток среднего уровня';
             break;
         case appData.dailyBudget > 3000:
@@ -170,5 +176,3 @@ let appData = {
     income: [],
     savings: false
 };
-
-
