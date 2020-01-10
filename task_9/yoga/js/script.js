@@ -8,26 +8,26 @@ window.addEventListener('DOMContentLoaded',function () {
         tabContent = document.querySelectorAll('.info-tabcontent');
 
     // функция которая скрывает все табы кроме 1го
-    function hideTabContent(a) { 
+    let hideTabContent = (a) => { 
         for (let index = a; index < tabContent.length; index++) {
             tabContent[index].classList.remove('show');
             tabContent[index].classList.add('hide');   
         }
-     }
+     };
 
      hideTabContent(1);
 
 
      // функция которая показывает таб с индексом вместо b
-     function showTabContent(b) { 
+     let showTabContent = (b) => { 
        if (tabContent[b].classList.contains('hide')) {
         tabContent[b].classList.remove('hide');
         tabContent[b].classList.add('show');
        }
 
-      }
+      };
     //   при клике на таб запускаем цикл по всем табам и сверяем каждый таб с тем табом на который кликнули если они равны то скрываем все табы а таб который равен по тому на который кликнули показываем
-      info.addEventListener('click', function (event) {
+      info.addEventListener('click', (event) => {
           let target = event.target;
           if (target && target.classList.contains('info-header-tab')) {
               for (let index = 0; index < tab.length; index++) {
@@ -45,9 +45,9 @@ window.addEventListener('DOMContentLoaded',function () {
 
     //Timer
 
-    let deadline = '2019-12-28';
+    let deadline = '2020-01-12';
 
-    function getTimeRemining(endtime) {
+    let getTimeRemining = (endtime) => {
         let t = Date.parse(endtime) - new Date(),
             seconds = Math.floor((t/1000) % 60),
             minutes = Math.floor((t/1000/60) % 60),
@@ -59,11 +59,11 @@ window.addEventListener('DOMContentLoaded',function () {
             'minutes': minutes,
             'hours': hours
         };
-    }
+    };
 
    
 
-    function setClock(id,endtime) {
+    let setClock = (id,endtime) => {
         let timer = document.getElementById('timer'),
             hours = timer.querySelector('.hours'),
             minutes = timer.querySelector('.minutes'),
@@ -94,7 +94,7 @@ window.addEventListener('DOMContentLoaded',function () {
         }
 
         
-    }
+    };
 
     setClock('timer',deadline);
 
@@ -111,7 +111,7 @@ more.addEventListener('click',function () {
     document.body.style.overflow = 'hidden';
 });
 
-close.addEventListener('click',function () {
+close.addEventListener('click',() => {
     overlay.style.display = 'none';
     more.classList.remove('more-splash');
     document.body.style.overflow = '';
@@ -120,12 +120,12 @@ close.addEventListener('click',function () {
 
 let tabsBtn = document.querySelectorAll('.description-btn');
 
-function openModal(btn) {
-    btn.addEventListener('click',function () { 
+let openModal = (btn) => {
+    btn.addEventListener('click',() => { 
         overlay.style.display = 'block';
         document.body.style.overflow = 'hidden';
      });
-}
+};
 
 tabsBtn.forEach(element => {
     openModal(element);
