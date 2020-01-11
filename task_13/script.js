@@ -21,3 +21,9 @@ class Options {
 let div = new Options('100px', '100px', 'red', '22px', 'center');
 
 div.crateDiv('Привет, как дела?');
+
+let box = document.querySelector('div');
+
+console.log(box);
+
+
