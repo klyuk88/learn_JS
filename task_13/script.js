@@ -8,7 +8,7 @@ class Options {
         this.textAlign = textAlign;
     }
 
-    crateDiv(text) {
+    createDiv(text) {
         let elem = document.createElement('div');
         let parent = document.querySelector('body');
         parent.appendChild(elem);
@@ -20,7 +20,7 @@ class Options {
 
 let div = new Options('100px', '100px', 'red', '22px', 'center');
 
-div.crateDiv('Привет, как дела?');
+div.createDiv('Привет, как дела?');
 
 let box = document.querySelector('div');
 
