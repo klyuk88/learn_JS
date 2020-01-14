@@ -1,4 +1,4 @@
-window.addEventListener('DOMContentLoaded',function () { 
+window.addEventListener('DOMContentLoaded', function () {
     'use strict';
 
     // Табы
@@ -8,38 +8,38 @@ window.addEventListener('DOMContentLoaded',function () {
         tabContent = document.querySelectorAll('.info-tabcontent');
 
     // функция которая скрывает все табы кроме 1го
-    let hideTabContent = (a) => { 
+    let hideTabContent = (a) => {
         for (let index = a; index < tabContent.length; index++) {
             tabContent[index].classList.remove('show');
-            tabContent[index].classList.add('hide');   
+            tabContent[index].classList.add('hide');
         }
-     };
+    };
 
-     hideTabContent(1);
+    hideTabContent(1);
 
 
-     // функция которая показывает таб с индексом вместо b
-     let showTabContent = (b) => { 
-       if (tabContent[b].classList.contains('hide')) {
-        tabContent[b].classList.remove('hide');
-        tabContent[b].classList.add('show');
-       }
+    // функция которая показывает таб с индексом вместо b
+    let showTabContent = (b) => {
+        if (tabContent[b].classList.contains('hide')) {
+            tabContent[b].classList.remove('hide');
+            tabContent[b].classList.add('show');
+        }
 
-      };
+    };
     //   при клике на таб запускаем цикл по всем табам и сверяем каждый таб с тем табом на который кликнули если они равны то скрываем все табы а таб который равен по тому на который кликнули показываем
-      info.addEventListener('click', (event) => {
-          let target = event.target;
-          if (target && target.classList.contains('info-header-tab')) {
-              for (let index = 0; index < tab.length; index++) {
-                  if (target == tab[index]) {
+    info.addEventListener('click', (event) => {
+        let target = event.target;
+        if (target && target.classList.contains('info-header-tab')) {
+            for (let index = 0; index < tab.length; index++) {
+                if (target == tab[index]) {
                     hideTabContent(0);
                     showTabContent(index);
                     break;
-                  }
-                  
-              }
-          }
-      });
+                }
+
+            }
+        }
+    });
     // табы конец
 
 
@@ -49,9 +49,9 @@ window.addEventListener('DOMContentLoaded',function () {
 
     let getTimeRemining = (endtime) => {
         let t = Date.parse(endtime) - new Date(),
-            seconds = Math.floor((t/1000) % 60),
-            minutes = Math.floor((t/1000/60) % 60),
-            hours = Math.floor(t/(1000*60*60));
+            seconds = Math.floor((t / 1000) % 60),
+            minutes = Math.floor((t / 1000 / 60) % 60),
+            hours = Math.floor(t / (1000 * 60 * 60));
 
         return {
             'total': t,
@@ -61,9 +61,9 @@ window.addEventListener('DOMContentLoaded',function () {
         };
     };
 
-   
 
-    let setClock = (id,endtime) => {
+
+    let setClock = (id, endtime) => {
         let timer = document.getElementById('timer'),
             hours = timer.querySelector('.hours'),
             minutes = timer.querySelector('.minutes'),
@@ -84,108 +84,122 @@ window.addEventListener('DOMContentLoaded',function () {
                     if (t[key].length == 1) {
                         t[key] = '0' + t[key];
                     }
-                   
+
                 }
                 hours.textContent = t.hours;
                 minutes.textContent = t.minutes;
                 seconds.textContent = t.seconds;
             }
-            
+
         }
 
-        
+
     };
 
-    setClock('timer',deadline);
+    setClock('timer', deadline);
 
 
 
-//  модальное окно
-let more = document.querySelector('.more'),
-    overlay = document.querySelector('.overlay'),
-    close = document.querySelector('.popup-close');
+    //  модальное окно
+    let more = document.querySelector('.more'),
+        overlay = document.querySelector('.overlay'),
+        close = document.querySelector('.popup-close');
 
-more.addEventListener('click',function () {
-    overlay.style.display = 'block';
-    this.classList.add('more-splash');
-    document.body.style.overflow = 'hidden';
-});
-
-close.addEventListener('click',() => {
-    overlay.style.display = 'none';
-    more.classList.remove('more-splash');
-    document.body.style.overflow = '';
-});
-
-
-let tabsBtn = document.querySelectorAll('.description-btn');
-
-let openModal = (btn) => {
-    btn.addEventListener('click',() => { 
+    more.addEventListener('click', function () {
         overlay.style.display = 'block';
+        this.classList.add('more-splash');
         document.body.style.overflow = 'hidden';
-     });
-};
+    });
 
-tabsBtn.forEach(element => {
-    openModal(element);
+    close.addEventListener('click', () => {
+        overlay.style.display = 'none';
+        more.classList.remove('more-splash');
+        document.body.style.overflow = '';
+    });
+
+
+    let tabsBtn = document.querySelectorAll('.description-btn');
+
+    let openModal = (btn) => {
+        btn.addEventListener('click', () => {
+            overlay.style.display = 'block';
+            document.body.style.overflow = 'hidden';
+        });
+    };
+
+    tabsBtn.forEach(element => {
+        openModal(element);
+    });
+
+
+    //Form
+
+    let form = document.querySelectorAll('form');
+
+    form.forEach(element => {
+        element.addEventListener('submit', (e) => {
+            e.preventDefault();
+            let input = element.querySelectorAll('input'),
+                statusMessage = document.createElement('div'),
+                message = {
+                    loading: 'Загрузка...',
+                    sacces: 'Успешно',
+                    fail: 'Ошибка'
+                };
+
+            element.appendChild(statusMessage);
+
+
+            let request = new XMLHttpRequest();
+
+            request.open('POST', 'server.php');
+            request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+
+
+            let formData = new FormData(element);
+            let obj = {};
+
+            formData.forEach((value, key) => {
+                obj[key] = value;
+            });
+
+            let json = JSON.stringify(obj);
+            request.send(json);
+
+            let promise = new Promise(function (resolve, reject) {
+                request.addEventListener('readystatechange', () => {
+                    if (request.readyState < 4) {
+
+                        resolve();
+                    } else if (request.readyState === 4 && request.status == 200) {
+                        resolve();
+
+                    } else {
+                        reject();
+
+                    }
+                });
+
+            });
+
+            promise
+                .then(() => {
+                    statusMessage.innerHTML = message.sacces;
+                }).then(() => {
+                    statusMessage.innerHTML = message.sacces;
+                }).catch(() => {
+                    statusMessage.innerHTML = message.fail;
+                }).then(() => {
+                    for (let index = 0; index < input.length; index++) {
+                        input[index].value = '';
+                    }
+                });
+
+        });
+
+    });
+
+    // end form
+
+
 });
-
-
-   //Form
-
-   let form = document.querySelectorAll('form');
-
-   for (let i = 0; i < form.length; i++) {
-
-       form[i].addEventListener('submit', (e) => {
-           e.preventDefault();
-           let input = form[i].querySelectorAll('input'),
-               statusMessage = document.createElement('div'),
-               message = {
-                   loading: 'Загрузка...',
-                   sacces: 'Успешно',
-                   fail: 'Ошибка'
-               };
-
-           form[i].appendChild(statusMessage);
-
-           let request = new XMLHttpRequest();
-
-           request.open('POST', 'server.php');
-           request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
-
-           let formData = new FormData(form[i]);
-           let obj = {};
-
-           formData.forEach((value, key) => {
-               obj[key] = value;
-           });
-
-           let json = JSON.stringify(obj);
-           request.send(json);
-           request.addEventListener('readystatechange', () => {
-               if (request.readyState < 4) {
-                   statusMessage.innerHTML = message.loading;
-               } else if (request.readyState === 4 && request.status == 200) {
-                   statusMessage.innerHTML = message.sacces;
-               } else {
-                   statusMessage.innerHTML = message.fail;
-               }
-               for (let index = 0; index < input.length; index++) {
-                   input[index].value = '';
-               }
-
-           });
-
-       });
-
-   }
-   // end form
-
-
- });
-
-
-
