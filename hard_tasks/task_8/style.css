@@ -1,0 +1,29 @@
+.card {
+  width: 100% !important;
+  margin-bottom: 30px !important;
+}
+
+.card-img-top {
+  max-height: 200px;
+}
+
+.card-body {
+  height: 482px;
+}
+
+.filter {
+  background: #e1e0e0;
+  width: 100%;
+  padding: 30px 30px;
+}
+
+.country {
+  list-style: none;
+  padding: 0;
+}
+
+.country li:hover {
+  color: blue;
+  cursor: pointer;
+}
+/*# sourceMappingURL=style.css.map */
