@@ -200,8 +200,6 @@ window.addEventListener('DOMContentLoaded', function () {
     // end form
 
     // slider
-
-
     let slideIndex = 1,
         slides = document.querySelectorAll('.slider-item'),
         prev = document.querySelector('.prev'),
@@ -259,4 +257,53 @@ window.addEventListener('DOMContentLoaded', function () {
             }
         }
     });
+    // end slider
+
+// calculator
+
+let person = document.querySelectorAll('.counter-block-input')[0],
+    resDay = document.querySelectorAll('.counter-block-input')[1],
+    place = document.getElementById('select'),
+    totalValue = document.getElementById('total'),
+    personSum = 0,
+    daySum = 0,
+    total = 0;
+
+
+totalValue.innerHTML = 0;
+
+person.addEventListener('change', function () { 
+    personSum = +this.value;
+    total = (daySum + personSum)*4000;
+
+    if (resDay.value == '' || this.value =='') {
+        totalValue.innerHTML = 0;
+    } else {
+        totalValue.innerHTML = total;
+    }
+
+ });
+
+resDay.addEventListener('change', function () { 
+    daySum = +this.value;
+    total = (daySum + personSum)*4000;
+
+    if (personSum.value == '' || this.value == '') {
+        totalValue.innerHTML = 0;
+    } else {
+        totalValue.innerHTML = total;
+    }
+
+ });
+
+ place.addEventListener('change', function () { 
+    if (resDay.value == '' || person.value == '') {
+        totalValue.innerHTML = 0;
+    } else {
+        let a = total;
+        totalValue.innerHTML = a * this.options[this.selectedIndex].value;
+    }
+
+  });
+
 });
